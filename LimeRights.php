@@ -19,7 +19,7 @@ use Yii;
 class LimeRights extends Component
 {
     private $httpClient = null;
-    public $identityClass;
+
     public $baseUrl;
     public $systemId;
     public $systemSecret;
@@ -42,9 +42,7 @@ class LimeRights extends Component
     }
     public function init(){
         parent::init();
-        if ($this->identityClass === null) {
-            throw new InvalidConfigException('LimeRights::identityClass must be set.');
-        }
+
         if ($this->baseUrl === null) {
             throw new InvalidConfigException('LimeRights::baseUrl must be set.');
         }
@@ -81,7 +79,7 @@ class LimeRights extends Component
         if($response->isOK && array_key_exists('user',$response->getData())){
             $userData = $response->getData()['user'];
             if ($userData){
-                $user = Yii::createObject($this->identityClass);
+                $user = new User();
                 $user->setAttributes($userData, false);
                 return $user;
             }else{
@@ -97,7 +95,7 @@ class LimeRights extends Component
         if($response->isOK && array_key_exists('user',$response->getData())){
             $userData = $response->getData()['user'];
             if ($userData){
-                $user = Yii::createObject($this->identityClass);
+                $user = new User();
                 $user->setAttributes($userData, false);
                 return $user;
             }else{
@@ -113,7 +111,7 @@ class LimeRights extends Component
         if($response->isOK && array_key_exists('user', $response->getData())){
             $userData = $response->getData()['user'];
             if ($userData){
-                $user = Yii::createObject($this->identityClass);
+                $user = new User();
                 $user->setAttributes($userData, false);
                 return $user;
             }else {
