@@ -16,12 +16,6 @@ use yii;
 
 class CodeGen extends Component
 {
-    //组织机构code
-    const ORG_CODE = 'o_code';
-
-    //实体code 站点
-    const ENTITY_CODE = 'e_code';
-
     //code前缀 驿站
     const CODE_STATION = '01';
 
@@ -72,30 +66,14 @@ class CodeGen extends Component
         }
     }
     /**
-     * @param $type integer
+     * @param $id integer
      * @param $prefix integer
      * @return $code string
      * @throws ErrorException
      */
-    public  function createCode($type, $prefix)
+    public  function createCode($id, $prefix)
     {
-        if ($type == self::ORG_CODE) {
-            $pad_len = 8;
-        } else if ($type == self::ENTITY_CODE) {
-            $pad_len = 12;
-        } else {
-            throw new ErrorException('参数错误');
-        }
-
-        $cmd = $this->db->createCommand("call max_id(:reg,@s)");
-        $cmd->bindParam(':reg', $type, \PDO::PARAM_STR, 10);
-        $cmd->execute();
-        $s = $this->db->createCommand("select @s");
-        $ret = $s->queryOne();
-        if (!empty($ret) && !empty($ret['@s'])) {
-            return $prefix . str_pad($ret['@s'], $pad_len, 0, STR_PAD_LEFT);
-        } else {
-            throw new ErrorException('生成编号错误');
-        }
+        $pad_len = 8;
+        return $prefix . str_pad($id, $pad_len, 0, STR_PAD_LEFT);
     }
 }
