@@ -33,13 +33,13 @@ class CodeGen extends Component
 
     //code前缀 床位
     const CODE_BED = '06';
-    
+
     /**
      * @param $id integer
      * @param $prefix integer
      * @return $code string
      */
-    public  function createCode($id, $prefix)
+    public static function createCode($id, $prefix)
     {
         $pad_len = 8;
         return $prefix . str_pad($id, $pad_len, 0, STR_PAD_LEFT);
