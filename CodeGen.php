@@ -33,43 +33,11 @@ class CodeGen extends Component
 
     //code前缀 床位
     const CODE_BED = '06';
-
-    private $db;
-    public $useDefaultDb;
-    public $dsn;
-    public $username;
-    public $password;
-    public $charset;
-
-
-    public function init(){
-        parent::init();
-
-        if ($this->useDefaultDb){
-            $this->db = Yii::$app->db;
-        }else{
-            if ($this->dsn === null) {
-                throw new InvalidConfigException('CodeGen::dsn must be set.');
-            }
-            if ($this->username === null) {
-                throw new InvalidConfigException('CodeGen::username must be set.');
-            }
-            if ($this->password === null) {
-                throw new InvalidConfigException('CodeGen::password must be set.');
-            }
-            $this->db = new yii\db\Connection([
-                'dsn' => $this->dsn,
-                'username' => $this->username,
-                'password' => $this->password,
-                'charset' => $this->charset,
-            ]);
-        }
-    }
+    
     /**
      * @param $id integer
      * @param $prefix integer
      * @return $code string
-     * @throws ErrorException
      */
     public  function createCode($id, $prefix)
     {
